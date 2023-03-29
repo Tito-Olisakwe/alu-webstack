@@ -17,7 +17,7 @@ frontend www-https
 backend www-backend
     mode http
     balance roundrobin
-    server webserver1 34.207.153.132:80 check
+    server webserver1 107.20.111.173:80 check
 EOF
 
 # Restart HAproxy to apply the new configuration
