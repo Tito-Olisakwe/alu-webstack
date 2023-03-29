@@ -2,10 +2,10 @@
 # Bash script that configures HAproxy
 
 # Obtain a certificate for your domain name
-sudo certbot certonly --standalone -d titoparisolisakwe.tech.com -d www.titoparisolisakwe.tech.com
+sudo certbot certonly --standalone -d titoparisolisakwe.tech -d www.titoparisolisakwe.tech
 
 # Concatenate the certificate and private key into a single PEM file
-sudo cat /etc/letsencrypt/live/titoparisolisakwe.tech.com/fullchain.pem /etc/letsencrypt/live/titoparisolisakwe.tech.com/privkey.pem | sudo tee /etc/haproxy/haproxy.pem
+sudo cat /etc/letsencrypt/live/titoparisolisakwe.tech/fullchain.pem /etc/letsencrypt/live/titoparisolisakwe.tech/privkey.pem | sudo tee /etc/haproxy/haproxy.pem
 
 # Update HAproxy configuration file
 sudo bash -c 'cat > /etc/haproxy/haproxy.cfg' << EOF
