@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Bash script that configures HAproxy
+
+# Obtain a certificate for your domain name
+sudo certbot certonly --standalone -d titoparisolisakwe.tech.com -d www.titoparisolisakwe.tech.com
+
+# Concatenate the certificate and private key into a single PEM file
+sudo cat /etc/letsencrypt/live/titoparisolisakwe.tech.com/fullchain.pem /etc/letsencrypt/live/titoparisolisakwe.tech.com/privkey.pem | sudo tee /etc/haproxy/haproxy.pem
+
+# Update HAproxy configuration file
+sudo bash -c 'cat > /etc/haproxy/haproxy.cfg' << EOF
+frontend www-https
+    bind *:443 ssl crt /etc/haproxy/haproxy.pem
+    mode http
+    default_backend www-backend
+
+backend www-backend
+    mode http
+    balance roundrobin
+    server webserver1 34.207.153.132:80 check
+EOF
+
+# Restart HAproxy to apply the new configuration
+sudo service haproxy restart
